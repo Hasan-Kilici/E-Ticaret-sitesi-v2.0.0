@@ -1,0 +1,103 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<%- include("../partials/marketnavbar") %> 
+<div class="container m-t">
+<div class="row justify-content-center">
+<div class="col-md-5">
+<div class="foto">
+<img src="/uploads/<%= urun.foto %>">  
+</div>  
+</div>
+<div class="col-md-5 urun-content">
+<h3><%= urun.baslik %></h3>
+<label>Satıcı : <%= urun.aciklama %></label>
+<label class="m-t"><%= urun.market %></label><br>
+<span style="font-size:1.5em" class="m-t m-b text-success"><b><%= urun.fiyat %></b>TL</span><br>
+<% if(urun.stok < 1){ %>
+<span class="text-secondary">Stokda yok</span>  
+<% } else { %>
+<span class="text-secondary">Stokda <%= urun.stok %></span>
+<form style="width:100%" method="POST" action="/sepete/ekle/<%= urun.id %>">
+<button style="width:40%" class="btn bg-dark btn-dark">
+<i class="fal fa-shopping-basket"></i> Sepete ekle
+</button> 
+</form>
+<% } %>
+<div class="row">
+</div>
+<button type="button" class="btn text-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+<i class="fal fa-exclamation-triangle"></i> Şikayet et
+</button>
+</div>
+</div>
+<div class="row justify-content-center">
+<div class="col-9">
+<% if(yorumsayi < 1 ) { %>
+<h4>Bu ürüne Yorumda bulunulmamış</h4>
+<% } else { %>
+<h4 style="float:left">Yorumlar</h4> <span style="margin-left:0.3vw;"> <%= yorumsayi %> </span><br><br>
+<% yorum.forEach(yorum => { %>
+<b><%= yorum.kullanici_adi %></b><br>
+<label ><%= yorum.mesaj %></label>
+<form method="POST" action="/yorum/begen/<%= yorum._id %>">
+<button class="btn" type="submit">
+<i 
+<% for(var i=0; i < kullanici.begeni.length ; i++ )  { %>
+<% if(kullanici.begeni[i] != yorum._id ) { %>
+
+<% } else {%>
+style="color:red"
+<% } %>
+<% } %>  
+class="fas fa-heart">
+</i> <%= yorum.like %></button>  
+</form>
+<% }) %>
+<% } %>
+<form method="POST" action="/yorum/ekle/<%= urun.id %>">
+<h4>Yorum yap</h4>
+<textarea class="form-control" id="mesaj" name="mesaj" class="col-12"></textarea><br>
+<input type="submit" class="btn btn-dark m-t">
+</form>
+</div>
+</div>
+  
+  
+  
+  
+  
+  
+  
+  <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Şikayetini İlet</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/sikayet-et/market/<%= urun.marketId %>">
+      <label>Kategori</label>
+       <select class="form-control" id="kategori" name="kategori">
+        <option value="dolandiricilik">Dolandırıcılık</option>
+        <option value="hakaret-kufur">Küfür / Hakaret</option>
+       </select>   
+       <label>Şikayet Sebebiniz</label><br>
+      <textarea class="col-12" id="sikayet" name="sikayet"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-danger">Şikayet Et</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>  
+</div>
+  
+<script>console.log("<%= kullanici._id %>")</script>
