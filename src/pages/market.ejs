@@ -1,0 +1,33 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/navbar") %>
+<div class="container-fluid bg-second text-light">
+<div class="container">
+<div class="row">
+<div class="col-12 m-b" style="padding-top:1.5vw;">
+<h3><%= market.isim %></h3> 
+</div>
+</div>
+</div>  
+</div>
+<div class="container m-t">
+<h4><%= market.isim %> Ürünleri</h4>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<h3><%= urun.baslik %></h3>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
+<div class="d-flex" style="gap:1vw;flex-wrap:wrap;">
+
+</div>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+</div>
