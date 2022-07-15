@@ -500,15 +500,17 @@ var sonuc = req.body.arama;
 var userId = req.cookies.id;
 Market.find().then((marketSonuc)=>{
 Urunler.find({baslik : sonuc}).sort({createdAt : -1}).then((urunSonuc)=>{
+Urunler.find({baslik : sonuc}).count().then((urunSonucSayi)=>{
 if(userId != null){
 Kullanicilar.findById(userId).then((kullaniciSonuc)=>{
-res.render(__dirname+'/src/signed/arama.ejs',{title : "Anasayfa", kullanici : kullaniciSonuc, urun : urunSonuc })
+res.render(__dirname+'/src/signed/arama.ejs',{title : "Anasayfa", kullanici : kullaniciSonuc, urun : urunSonuc , urunsayi : urunSonucSayi})
 }).catch((err)=>{
 res.redirect("/")
 })
 } else {
-res.render(__dirname+'/src/pages/arama.ejs',{title : "Anasayfa", urun : urunSonuc });  
+res.render(__dirname+'/src/pages/arama.ejs',{title : "Anasayfa", urun : urunSonuc , urunsayi : urunSonucSayi});  
 }
+})
 })
 })
 })
