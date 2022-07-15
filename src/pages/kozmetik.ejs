@@ -1,0 +1,31 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/navbar") %>
+<%- include("../partials/marketnavbar") %>  
+<%- include("../partials/jumbotron") %>
+<div class="container m-t">
+<h3 class="m-t">Kozmetik</h3>
+<% if(kozmetiksayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% kozmetik.forEach(kozmetik => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= kozmetik.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=kozmetik.id%>"><h3><%= kozmetik.baslik %></h3></a>
+<span class="text-success"><b><%= kozmetik.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= kozmetik.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %>
+</div>
