@@ -1,0 +1,24 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/navbar") %> 
+<%- include("../partials/marketnavbar") %> 
+<%- include("../partials/jumbotron") %>
+<div class="container m-t">
+<h4>Ürünler</h4>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-4">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<h3><%= urun.baslik %></h3>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= urun.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+  </div>
