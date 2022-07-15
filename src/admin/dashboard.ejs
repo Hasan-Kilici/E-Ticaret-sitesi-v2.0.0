@@ -1,0 +1,197 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/adminnavbar") %>
+<div class="container m-t">
+<div class="col-12">
+<div class="card">
+<div class="card-body">
+<h4>Market Ekle</h4>
+<form method="POST" action="/market/ekle">
+<label>Marka adı</label> 
+<input type="text" class="form-control" id="isim" name="isim">
+<label>Logo</label>
+<input type="text" class="form-control" id="logo" name="logo">
+<input type="submit" class="btn btn-dark m-t">
+</form>
+</div>
+</div>  
+</div>
+<h4 style="margin-top:2vh;">Marketler</h4>
+<div class="row">
+<% market.forEach(market => { %>
+<div class="col-md-3 m-t">
+<div class="card m-b">
+<div class="card-img-top">
+<center><img class="m-t" src="<%= market.logo %>"></center>
+</div>
+<div class="card-body">
+<h5><%= market.isim %></h5>  
+<label>ID : <%= market._id %></label><br>
+<label>Liyakat : <%= market.liyakat %></label>
+</div>
+<% if(market.liyakat < 40){ %>
+<div class="card-footer">
+<div class="row">
+<form class="col-6" method="POST" action="/market/sil/<%= market._id %>">
+<input type="submit" value="Marketi Sil" class="btn btn-danger">  
+</form>
+<form class="col-6" method="POST" action="/market/ceza/kaldir/<%= market._id %>">
+<input type="submit" value="Cezaları Kaldır" class="btn btn-dark">  
+</form>
+</div>
+  </div>
+<% } %>
+</div>
+</div>
+<% }) %>
+</div>
+<div class="row m-t">
+<h4 style="margin-top:2vh;" class="m-t">Market Sahipleri</h4>
+<% marketSahip.forEach(marketSahip => { %>
+<div class="col-md-3">
+<div class="card m-b">
+<div class="card-header"> 
+<div class="row">
+<div style="width:50px;font-size:2em;">
+<i class="fal fa-user"></i> 
+</div>
+<div class="col-9"><h4><%= marketSahip.kullanici_adi %></h4></div>
+</div>
+</div>
+<div class="card-body">
+<span><i style="margin-right:1.4vw;" class="fal fa-store"></i> <%= marketSahip.market %></span>  
+</div>
+<div class="card-footer">
+<a href="/market/<%= marketSahip.marketId %>"><button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+Markete git
+</button></a>
+</div>
+</div>
+</div>
+<% }) %>
+</div>
+<div class="row m-t">
+<h4 style="margin-top:2vh;" >Şikayetler</h4>
+<% sikayet.forEach(sikayet => { %>
+<div class="col-md-4">
+<div class="card m-b">
+<div class="card-header"> 
+<div class="row align-items-center">
+<div style="width:50px;font-size:2em;">
+<i class="fal fa-exclamation-triangle"></i>
+</div>
+<div class="col-9"><h4><%= sikayet.sikayetci %></h4></div>
+</div>
+</div>
+<div class="card-body">
+<span><i style="margin-right:1.4vw;" class="fal fa-store"></i> <%= sikayet.market %></span> <br>
+<span><i style="margin-right:1.4vw;float:left;" class="fal fa-exclamation-triangle"></i> 
+<li>Kategori : <%= sikayet.kategori %></li>
+<li style="margin-left:2.1vw;">Şikayet : <%= sikayet.sikayet %></li>
+</span>
+</div>
+<div class="card-footer">
+<div class="row">
+<form class="col-6" method="POST" action="/market/cezalandir/<%= sikayet.marketId %>">
+<button type="submit" class="btn btn-danger">
+Marketi Cezalandır
+</button>
+</form>
+<form class="col-6" method="POST" action="/sikayet/sil/market/<%= sikayet._id %>">
+<button type="submit" class="btn btn-dark">
+Görmezden Gel
+</button>
+</form>
+</div>
+</div>
+</div>
+</div>
+<% }) %>
+</div>
+<h4 class="m-t">Siparişler</h4>
+<div style="margin-bottom:2vh;" class="row m-d">
+<% if(siparissayi < 1 ) { %>
+<p>Sipariş bulunamadı</p>
+<% } else { %>
+<% siparisler.forEach(siparisler => { %>
+<div class="col-md-3">
+<div class="card m-b">
+<div class="card-body">
+<h5><%= siparisler.urun %> Siparişi alındı</h5>
+<label ><i class="fal fa-user-alt"></i> <%= siparisler.kullanici %></label><br>
+<label class="m-t m-b"><i class="fal fa-map-marker-alt"></i> <%= siparisler.adres %></label>
+<form method="POST" action="/siparis/sil/<%= siparisler.id %>">
+<button type="submit" class="btn btn-dark">Sipariş ulaştırıldı</button>  
+</form>
+</div>
+</div>
+</div>
+<% }) %>
+</div>  
+<% } %>
+<h4 style="margin-top:2vh;">Kullanıcılar</h4>
+<span>Online : <%= onlineKullanici %></span>
+<div class="row">
+<% kullanicilar.forEach(kullanicilar => { %>
+<div class="col-md-3">
+<div class="card m-b">
+<div class="card-header">
+<h5><i style="margin-right:1vw" class="fal fa-user"></i><%= kullanicilar.kullanici_adi  %></h5> 
+  </div>
+<div class="card-body">
+<label><i style="margin-right:1vw" class="fal fa-at"></i> <%= kullanicilar.email %></label><br>
+<label class="m-b"><i style="margin-right:1vw" class="fal fa-info-circle"></i> Liyakat : <%= kullanicilar.liyakat %></label>
+</div>
+<div class="card-footer">
+<div class="row m-t">
+<form style="width:45%" method="POST" action="/kullanici/sil/<%= kullanicilar._id %>">
+<input style="width:100%;float:left;" type="submit" class="btn btn-danger" value="Sil">
+</form>
+<form style="width:45%" method="POST" action="/kullanici/duzenleme/<%= kullanicilar._id %>">
+<input style="width:100%" type="submit" class="btn btn-dark" value="Düzenle">
+</form>
+</div>
+</div>
+</div>
+</div>
+<% }) %>
+</div>
+<h4 class="m-t">Ürünler</h4>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<h3><%= urun.baslik %></h3>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
+<div class="d-flex" style="gap:1vw;flex-wrap:wrap;">
+<form style="width:45%" method="POST" action="/urun/sil/<%= urun._id %>">
+<input style="width:100%;float:left;" type="submit" class="btn btn-danger" value="Sil">
+</form>
+<form style="width:45%" method="POST" action="/urun/duzenleme/<%= urun._id %>">
+<input style="width:100%" type="submit" class="btn btn-dark" value="Düzenle">
+</form>
+</div>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+</div>
+<script>
+    var socket = io();
+
+  var form = document.getElementById('form');
+  var input = document.getElementById('input');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (input.value) {
+      socket.emit('chat message', input.value);
+      input.value = '';
+    }
+  });
+  </script>
