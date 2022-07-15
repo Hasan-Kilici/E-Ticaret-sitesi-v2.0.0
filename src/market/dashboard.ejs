@@ -1,0 +1,111 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/marketadminnavbar") %>
+<body>
+<div class="container">
+<% uyarilar.forEach( uyarilar => { %>
+<div class="card m-t bg-danger text-light" style="margin-top:2vh;">
+<div class="card-header">
+<div style="width:40px;float:left;"><i class="fal fa-exclamation-triangle"></i></div>
+<div style="width:calc(100%-50px)">UYARI</div>
+</div>
+<div class="card-body"> 
+<h4>Kural ihlalinden Ötürü Şikayet Edildiniz</h4>
+<b>Sebep : <%= uyarilar.kategori %></b><br>
+</div>  
+</div>
+<% }) %>
+<b>Mevcut Liyakat : <%= market.liyakat %></b><br>
+<label><b>Önemli</b><br>
+eğer ki Liyakatınız 40'dan aşağı düşerse Marketiniz ve Marketinizdeki ürünler ve Bütün Moderatörlerin hesapları silinir</label>
+<div class="card col-12 m-t m-b">
+<div class="card-body">
+<h4>Ürün Ekle</h4>
+<form method="POST" enctype="multipart/form-data" action="/urun/ekle/<%= market.id %>">
+<label>Ürün Adı</label>
+<input type="text" class="form-control" id="baslik" name="baslik">
+<label>Ürün fiyatı</label>
+<input type="text" class="form-control" id="fiyat" name="fiyat">
+<label>Stokda ki ürün sayısı</label>
+<input type="text" class="form-control" id="stok" name="stok" value="<%= urun.stok %>">
+<label>Ürün fotoğrafı</label>
+  <input class="form-control" type="file" class="form-control-file" name="uploaded_file"><br>
+<label>Kategori</label><br>
+<select class="form-select" name="kategori" id="kategori">
+  <option value="evesyalari">Ev eşyaları</option>
+  <option value="meyveSebze">Meyve Sebze</option>
+  <option value="kozmetik">Kozmetik</option>
+  <option value="elektronik">Elektronik</option>
+</select>
+<label>Ürün Açıklama</label><br>
+<textarea id="urunaciklama" name="urunaciklama" style="width:100%;border:1px solid #ccc;border-radius:5px;"></textarea>
+<br><br>
+<input id="click" type="submit" class="btn btn-dark">
+</form>
+
+</div> 
+</div>
+<h4>Ürünler</h4>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<h3><%= urun.baslik %></h3>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br>
+<% if(urun.stok < 1){ %>
+<b class="text-secondary">Stokda Yok</b><br>
+<% } else { %>
+<span class="text-secondary">Stokda : <%= urun.stok %></%></span><br>
+<% } %>
+<div class="d-flex" style="gap:1vw;flex-wrap:wrap;">
+<form style="width:45%" method="POST" action="/urun/sil/<%= urun._id %>">
+<input style="width:100%;float:left;" type="submit" class="btn btn-danger" value="Sil">
+</form>
+<form style="width:45%" method="POST" action="/urun/duzenleme/<%= urun._id %>">
+<input style="width:100%" type="submit" class="btn btn-dark" value="Düzenle">
+</form>
+</div>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+<h4 class="m-t">Siparişler</h4>
+<div style="margin-bottom:2vh;" class="row m-d">
+<% siparisler.forEach(siparisler => { %>
+<div class="col-md-3">
+<div class="card">
+<div class="card-body">
+<h5><%= siparisler.urun %> Siparişi alındı</h5>
+<label ><i class="fal fa-user-alt"></i> <%= siparisler.kullanici %></label><br>
+<label class="m-t m-b"><i class="fal fa-map-marker-alt"></i> <%= siparisler.adres %></label><br>
+<label><i class="fal fa-clock"></i> <%= siparisler.tarih %></label>
+<form method="POST" action="/siparis/sil/<%= siparisler.id %>">
+<button type="submit" class="btn btn-dark">Sipariş ulaştırıldı</button>  
+</form>
+</div>
+</div>
+</div>
+<% }) %>
+</div>  
+</div>
+<script>
+var socket = io();
+
+var urun = document.getElementById("baslik");
+var fiyat = document.getElementById("fiyat");
+var stok = document.getElementById("stok");
+var foto = document.getElementById("foto");
+var kategori = document.getElementById("kategori");
+
+var data = [urun.value,stok.value,foto.value,kategori.value]
+  
+const click = document.getElementById("click")
+
+click.onclick = socket.emit('UrunEkle', data)
+</script>
+</body>
