@@ -1,0 +1,27 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/marketadminnavbar") %>
+<div class="container m-t">
+<h4> Düzenle</h4>  
+<form method="POST" enctype="multipart/form-data" action="/urun/duzenle/<%= urun.id %>">
+<label>Ürün Adı</label>
+<input type="text" class="form-control" id="baslik" name="baslik" value="<%= urun.baslik %>">
+<label>Ürün fiyatı</label>
+<input type="text" class="form-control" id="fiyat" name="fiyat" value="<%= urun.fiyat %>">
+<label>Stokda ki ürün sayısı</label>
+<input type="text" class="form-control" id="stok" name="stok" value="<%= urun.stok %>">
+<label>Ürün fotoğrafı</label>
+<input class="form-control" type="file" class="form-control-file" name="uploaded_file"><br>
+<label>Kategori</label><br>
+<select class="form-select" name="kategori" id="kategori">
+  <option value="evesyalari">Ev eşyaları</option>
+  <option value="meyveSebze">Meyve Sebze</option>
+  <option value="kozmetik">Kozmetik</option>
+  <option value="elektronik">Elektronik</option>
+</select>
+<label>Ürün Açıklama</label><br>
+<textarea id="urunaciklama" name="urunaciklama" style="width:100%;border:1px solid #ccc;border-radius:5px;"><%= urun.aciklama %></textarea>
+<br><br>
+<input type="submit" class="btn btn-dark">
+</form>
+</div>
