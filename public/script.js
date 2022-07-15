@@ -1,7 +1,23 @@
 /*
-KAWETHRA.JS V.0.0.5
-YAKIN ZAMANDA SUNACAĞIM
+GELİŞTİRİCİ MESAJI :
+KAWETHRA.JS V0.0.5
+DAHA ÇIKMADI ANCAK DEMO OLARAK BURADA KULLANABİLİRSİNİZ
+
+CSS SYNTAX : css("query", "property", "value")
+ÖRNEK : css("body", "background", "red")
+
+LOG SYNTAX
+log("message")
+
+SHOW / HIDE
+hide("#demo", 1000);
+show("#demo, 1000);
+
+Tıklama Fonksiyonu eklemek
+addClick("query", "fonksiyon")
+Örnek : addClick("#demo", "alert('Anan')");
 */
+
 var element;
 //Geliştiriden Mesaj
 console.log("%cBu Framework Kawethra Tarafından Yazılmıştır",'color:red;font-size:25px;');
