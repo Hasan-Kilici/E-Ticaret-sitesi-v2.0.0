@@ -1,0 +1,136 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else if(kullanici.admin == "true") { %>
+<%- include("../partials/adminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<%- include("../partials/marketnavbar") %> 
+<%- include("../partials/jumbotron") %>
+<div class="container m-t">
+<h4>Ürünler</h4>
+<% if(urunsayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=urun.id%>"><h3><%= urun.baslik %></h3></a>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= urun.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+<% } %>
+<h3 class="m-t">Ev eşyaları</h3>
+<% if(evesyalarisayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% evesyalari.forEach(evesyalari => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= evesyalari.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=evesyalari.id%>"><h3><%= evesyalari.baslik %></h3></a>
+<span class="text-success"><b><%= evesyalari.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= evesyalari.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %>
+<h3 class="m-t">Meyve Sebze</h3>
+<% if(meyvesebzesayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% meyvesebze.forEach(meyvesebze => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= meyvesebze.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=meyvesebze.id%>"><h3><%= meyvesebze.baslik %></h3></a>
+<span class="text-success"><b><%= meyvesebze.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= meyvesebze.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %>
+<h3 class="m-t">Kozmetik</h3>
+<% if(kozmetiksayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% kozmetik.forEach(kozmetik => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= kozmetik.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=kozmetik.id%>"><h3><%= kozmetik.baslik %></h3></a>
+<span class="text-success"><b><%= kozmetik.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= kozmetik.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %>
+<h3 class="m-t">Elektronik</h3>
+<% if(elektroniksayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% elektronik.forEach(elektronik => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= elektronik.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=elektronik.id%>"><h3><%= elektronik.baslik %></h3></a>
+<span class="text-success"><b><%= elektronik.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= elektronik.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %>
+</div>
+  <script>
+const socket = io(location.host);
+</script>
