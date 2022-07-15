@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+:root{
+--secondColor : #E45826;
+--thirdColor : #F0A500;
+}
+.body{background:#eeeeee}
+*{font-family: 'Poppins', sans-serif;}
+.bg-second{background:var(--secondColor)}
+.bg-third{background:var(--thirdColor)}
+.m-t{margin-top:2vh;}
+.m-b{margin-bottom:2vh;}
+.content{padding:2vw;}
+.content h3{color:#eeeeee;}
+.content label{font-size:1.2em;}
+.urun-content{padding:2vw;}
+.urun-content label{
+font-size:1.2em;
+}
+.img-content{padding:2vw;}
+.img-content img{
+width:100%;
+height:35vh;
+border-radius:5px;
+}
+.card-img-top img{
+width:90%;
+height:20vh;
+}
+.foto{padding:2vw;}
+.foto img{
+width:100%;
+height:40vh;
+border-radius:5px; 
+}
+.hata{
+width:100%;
+height:35vh;
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+align-items:center;
+}
+.hata i{font-size:4em;}
+.hata label{
+width:100%;
+margin-top:-15vh;
+text-align:center;
+}
