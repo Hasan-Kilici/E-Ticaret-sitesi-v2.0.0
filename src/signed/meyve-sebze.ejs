@@ -1,0 +1,35 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<%- include("../partials/marketnavbar") %> 
+<%- include("../partials/jumbotron") %>
+<div class="container m-t">
+<h3 class="m-t">Meyve Sebze</h3>
+<% if(meyvesebzesayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
+<div class="row">
+<% meyvesebze.forEach(meyvesebze => { %>
+<div class="col-md-3">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="/uploads/<%= meyvesebze.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=meyvesebze.id%>"><h3><%= meyvesebze.baslik %></h3></a>
+<span class="text-success"><b><%= meyvesebze.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= meyvesebze.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>  
+<% } %> 
+  </div>
