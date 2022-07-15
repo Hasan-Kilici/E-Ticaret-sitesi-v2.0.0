@@ -9,6 +9,12 @@
 <%- include("../partials/jumbotron") %>
 <div class="container m-t">
 <h4>Ürünler</h4>
+<% if(urunsayi < 1){ %>
+<div class="hata text-secondary">
+<i class="fal fa-frown"></i>
+<label>Sonuç Bulunamadı</label>
+</div>
+<% } else { %>
 <div class="row">
 <% urun.forEach(urun => { %>
 <div class="col-md-4">
@@ -17,7 +23,7 @@
 <img src="<%= urun.foto %>" style="border-radius:5px;">
 </div>
 <div class="card-body">
-<a style="color:black" href="/urun/<%=urun.id%>"><h3><%= urun.baslik %></h3></a>
+<h3><%= urun.baslik %></h3>
 <span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
 <span>Satıcı : <%= urun.market %></span>
 </div>  
@@ -25,4 +31,5 @@
 </div>  
 <% }) %>
 </div>
+<% } %>
 </div>
