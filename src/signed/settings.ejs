@@ -1,0 +1,27 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<body onload="hesapla()">
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<div class="container m-t">
+<h4><%= kullanici.kullanici_adi %></h4>  
+<div class="card">
+<div class="card-body">
+<h5>Düzenle</h5>
+<form action="/kullanici/duzenleme/user/<%= kullanici._id %>" method="POST">
+<label>Kullanıcı Adı</label>
+<input type="text" id="kullanici_adi" name="kullanici_adi" class="form-control" value="<%= kullanici.kullanici_adi %>">
+<label>Email</label>
+<input type="text" id="email" name="email" class="form-control" value="<%= kullanici.email %>">  
+<label>Şifre</label>
+<input type="password" id="sifre" name="sifre" class="form-control" value="<%= kullanici.sifre %>">
+
+<input type="submit" class="btn btn-dark m-t" value="Güncelle">
+</form>
+
+</div>
+</div>
+</div>
