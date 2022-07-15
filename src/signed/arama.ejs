@@ -1,0 +1,28 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<%- include("../partials/marketnavbar") %> 
+<%- include("../partials/jumbotron") %>
+<div class="container m-t">
+<h4>Ürünler</h4>
+<div class="row">
+<% urun.forEach(urun => { %>
+<div class="col-md-4">
+<div class="card m-t">
+<div class="card-img-top text-center" style="padding-top:2vh;">
+<img src="<%= urun.foto %>" style="border-radius:5px;">
+</div>
+<div class="card-body">
+<a style="color:black" href="/urun/<%=urun.id%>"><h3><%= urun.baslik %></h3></a>
+<span class="text-success"><b><%= urun.fiyat%>TL</b></span><br><br>
+<span>Satıcı : <%= urun.market %></span>
+</div>  
+</div>  
+</div>  
+<% }) %>
+</div>
+</div>
