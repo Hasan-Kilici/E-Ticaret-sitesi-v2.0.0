@@ -1,0 +1,17 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<%- include("../partials/navbar") %> <br><br>
+<div class="row justify-content-center m-t">
+<div class="card col-md-5 m-t">
+<div class="card-body">
+<form method="POST" action="/giris">
+<label for="username">Kullanıcı Adı girin</label>
+<input type="text" id="username" name="username" class="form-control" placeholder="Kullanıcı Adı" required>
+<label for="sifre">Şifre</label>
+<input type="password" id="sifre" name="sifre" class="form-control" placeholder="Şifrenizi giriniz"><br>
+<input type="submit" class="btn btn-dark" value="Giriş yap">
+</form>
+<a href="/kayit-ol">Hesabın mı yok? Kayıt ol</a>
+</div>  
+</div>
+</div>
