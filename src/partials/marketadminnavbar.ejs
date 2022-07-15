@@ -1,0 +1,28 @@
+<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+  <div class="container-fluid align-items-center">
+    <a class="navbar-brand" href="/">E-Ticaret</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Anasayfa</a>
+        </li>
+<li class="nav-item dropdown">
+  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"><%= kullanici.kullanici_adi %></a>
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="/sepet/<%=kullanici._id%>">Sepetim</a></li>
+    <li><a class="dropdown-item" href="/market/dashboard/<%= kullanici.marketId %>">Market Dashboard</a></li>
+    <li><a class="dropdown-item" href="/kullanici/ayarlar/<%= kullanici._id %>">Kullanıcı Ayarları</a></li>
+    <li><a class="dropdown-item" href="/cikis-yap">Çıkış yap</a></li>
+  </ul>
+</li>
+</ul>
+</div>
+<form method="POST" action="/urun/arama" class="d-flex m-t">
+<input class="form-control me-2" type="text" id="arama" name="arama" placeholder="Search">
+<button class="btn btn-danger bg-second" type="submit"><i class="far fa-search"></i></button>
+</form>
+</div>
+</nav>
