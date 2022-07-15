@@ -77,7 +77,6 @@ console.log("mongoDB Bağlantı kuruldu");
 });
 }).catch((err) => console.log(err));
 //Colections
-const Photo = require('./models/Photo.js')
 const Kullanicilar = require('./models/kullanicilar.js');
 const Market = require('./models/market.js');
 const Urunler = require('./models/urunler.js');
