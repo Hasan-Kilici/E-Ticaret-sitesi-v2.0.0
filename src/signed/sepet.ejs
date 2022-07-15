@@ -1,0 +1,174 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<body onload="hesapla()">
+<% if(kullanici.marketAdmin == "true") { %>
+<%- include("../partials/marketadminnavbar") %> 
+<% } else { %>
+<%- include("../partials/signednavbar") %>
+<% } %>
+<%- include("../partials/marketnavbar") %> 
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-9">
+<div class="container">
+<h4 class="m-t">Sepetim</h4>
+<% if(urunsayi < 1 ){ %>
+<b>Sepetin Bomboş</b>
+<% } else { %>
+<script>
+var nesne = undefined;
+function hesapla(){
+var toplamFiyat = 0;
+var fiyatlar = [<% sepet.forEach(sepet => { %> <%= sepet.fiyat %>, <%})%>]
+for(var i=0;i < fiyatlar.length;i++){
+toplamFiyat = toplamFiyat + fiyatlar[i]
+console.log(fiyatlar[i])
+console.log(toplamFiyat)
+}
+document.getElementById("toplam").innerHTML = `${toplamFiyat} TL`;
+}
+</script>
+<% sepet.forEach(sepet => { %>
+<div class="col-md-8">
+<div class="card m-t">
+<div class="card-body">
+<h3><%= sepet.urun %></h3>
+<span class="text-success"><b id="fiyat"><%= sepet.fiyat %></b>TL</span><br><br>
+</div>
+<div class="card-footer">
+<div class="row">
+<form style="width:50%" method="POST" action="/sepetten/kaldir/<%= sepet.id %>">
+<button type="submit" style="width:100%;height:5vh;" class="btn btn-danger">Sepetten Çıkar</button>
+</form>
+<% if(sepet.durum == "iletildi"){ %>
+<span class="text-secondary"><i class="fal fa-paper-plane"></i> Sipariş iletildi</span>
+<% } else { %>
+<% if(kullanici.adres == "false") { %>
+<button onclick="alert('Bir ürünü sipariş etmek için Adres Girmeniz gerek')" type="submit" style="width:49%;height:5vh;" class="btn btn-dark">Sipariş et</button>
+<% } else { %>
+<form style="width:50%" method="POST" action="/siparis-et/<%= sepet.id %>">
+<button type="submit" style="width:100%;height:5vh;" class="btn btn-dark">Sipariş et</button>
+</form>
+<% } %>
+<% } %>
+</div> 
+</div>  
+</div>  
+</div>  
+<% }) %>
+<% } %>
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Adres Ekle</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action="/adres-ekle/<%= kullanici._id %>">
+          <div class="row">
+          <div class="col-md-6">
+          <label>isim</label>
+          <input type="text" class="form-control" id="isim" name="isim" required>  
+          </div>  
+          <div class="col-md-6">
+          <label>soyisim</label>
+          <input type="text" class="form-control" id="soyisim" name="soyisim" required>  
+          </div> 
+          <div class="col-md-6">
+          <label>Telefon</label>
+          <input type="tel" class="form-control" id="telno" name="telno" required>  
+          </div>  
+          <div class="col-md-6">
+          <label>il</label>
+          <input type="text" class="form-control" id="il" name="il" required>  
+          </div> 
+          <div class="col-md-6">
+          <label>ilçe</label>
+          <input type="text" class="form-control" id="ilce" name="ilce" required>  
+          </div>
+          <div class="col-md-6">
+          <label>mahalle</label>
+          <input type="text" class="form-control" id="mah" name="mah" required >  
+          </div>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary">Kaydet</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+var myModal = document.getElementById('myModal')
+var myInput = document.getElementById('myInput')
+
+myModal.addEventListener('shown.bs.modal', function () {
+  myInput.focus()
+})  
+</script>
+  </div>
+  </div>
+  <div style="height:100vh;" class="col-md-3 bg-light">
+<div class="col-12">  
+<% if(kullanici.adres == "false"){ %>
+<div class="card bg-danger text-light ">
+<div class="card-header"> 
+<div class="row">
+<div style="width:50px;font-size:2em;">
+<i class="fal fa-exclamation-circle"></i> 
+</div>
+<div class="col-9">
+<h4>Uyarı</h4>
+</div>
+</div>
+</div>
+<div class="card-body">
+<span><b>Dikkat!</b> Eğer Adres Bilgilerinizi girmediyseniz <b>Ürün Sipariş edemezsiniz.</b></span>  
+<div class="col-md-4"> 
+</div>
+</div>
+<div class="card-footer">
+<button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+Adres Ekle
+</button>
+</div>
+</div>
+
+<% } else { %>
+<!--Hiç bir şey olmayacak .d-->  
+<% } %>
+  <% if(urunsayi > 0 ){ %>
+  <br><span class="m-t">Toplam fiyat : <b id="toplam"></b></span><br> 
+  <form method="POST" action="/sepeti/temizle">
+  <button type="submit" class="btn btn-dark m-t">Sepeti Boşalt</button>  
+  </form>
+  <% } %>
+  <% if(siparissayi < 1){ %>
+  
+  <% } else { %>
+  Mevcut Siparişler
+  <% siparis.forEach(siparis => { %>
+  <div class="card m-t">
+  <div class="card-body">
+  <label>Ürün : <%= siparis.urun %></label><br>
+  <label>Sipariş Tarihi : <%= siparis.tarih %></label><br>
+  </div>
+  <div class="card-footer">
+  <form method="POST" action="/siparis/iptal/<%= siparis._id %>">
+  <button type="submit" class="btn btn-danger">Siparişi İptal et  </button>  
+  </form>  
+  </div>
+  </div>
+  <% }) %>
+  <% } %>
+  </div>
+  </div>
+  </div>
+  </div>
+  </body>
