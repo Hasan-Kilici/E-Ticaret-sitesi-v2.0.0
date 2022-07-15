@@ -1,0 +1,33 @@
+<%- include("../partials/head") %>
+<%- include("../partials/seo") %>
+<div class="container m-t">
+<div class="col-12">
+<div class="card">
+<div class="card-body">
+<form method="POST" action="/kullanici/duzenle/<%= kullanicilar._id %>">
+<label>Kullanıcı Adı</label>
+<input type="text" class="form-control" id="kullanici_adi" name="kullanici_adi" value="<%= kullanicilar.kullanici_adi %>">
+<label>Şifre</label>
+<input type="password" class="form-control" id="sifre" name="sifre" value="<%= kullanicilar.sifre %>">
+<label>E-Mail</label>
+<input type="text" class="form-control" id="email" name="email" value="<%= kullanicilar.email %>">
+<label>Yönetici</label>
+<select id="admin" name="admin" class="form-control">
+<option value="false">Hayır, değil</option>  
+<option value="true">Evet Yönetici</option>  
+</select>
+<label>Market Yönetici/Moderatör</label>
+<select id="marketAdmin" name="marketAdmin" class="form-control">
+<option value="false">Hayır, değil</option>  
+<option value="true">Evet Yönetici</option>  
+</select>
+<label>Market Kimliği</label>
+<input type="text" class="form-control" id="marketId" name="marketId" value="<%= kullanicilar.marketId %>">
+<label>Marketin Adı</label>
+<input type="text" class="form-control" id="market" name="market" value="<%= kullanicilar.market %>">
+<input type="submit" class="btn btn-dark m-t">
+</form>
+</div>  
+</div>
+</div>
+</div>
