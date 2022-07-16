@@ -154,7 +154,7 @@ app.get("/", (req, res) => {
                                                         kozmetiksayi:
                                                           kozmetikSayiSonuc,
                                                         elektroniksayi:
-                                                          elektronikSayiSonuc,
+                                                          elektronlektronikSayiSonuc,
                                                       }
                                                     );
                                                   })
@@ -180,7 +180,7 @@ app.get("/", (req, res) => {
                                                         kozmetiksayi:
                                                           kozmetikSayiSonuc,
                                                         elektroniksayi:
-                                                          elektronikSayiSonuc,
+                                                          elektronlektronikSayiSonuc,
                                                       }
                                                     );
                                                   });
@@ -203,7 +203,7 @@ app.get("/", (req, res) => {
                                                     kozmetiksayi:
                                                       kozmetikSayiSonuc,
                                                     elektroniksayi:
-                                                      elektronikSayiSonuc,
+                                                      elektronlektronikSayiSonuc,
                                                   }
                                                 );
                                               }
